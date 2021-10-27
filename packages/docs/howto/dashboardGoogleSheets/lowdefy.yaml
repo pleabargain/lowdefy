@@ -1,0 +1,824 @@
+lowdefy: 3.22.0
+
+connections:
+  - id: how-to-sheet
+    type: GoogleSheet
+    properties:
+      apiKey:
+        _secret: GOOGLE_SHEETS_API_KEY
+      sheetIndex: 0
+      spreadsheetId: 1TFwCZnXyXKqghRLnqSsrPjiYwdxZB4uuQD6EPNjbn1w
+      columnTypes:
+        Acidity: number
+        Aftertaste: number
+        AltitudeHighMeters: number
+        AltitudeLowMeters: number
+        AltitudeMeanMeters: number
+        Aroma: number
+        Balance: number
+        Body: number
+        CategoryOneDefects: number
+        CategoryTwoDefects: number
+        CleanCup: number
+        CupperPoints: number
+        Flavor: number
+        Moisture: number
+        NumberOfBags: number
+        Quakers: number
+        Sweetness: number
+        TotalCupPoints: number
+        Uniformity: number
+pages:
+  - id: dashboard
+    type: PageHeaderMenu
+    properties:
+      title: Dashboard
+    requests:
+      - id: countries_selector
+        type: GoogleSheetGetMany
+        connectionId: how-to-sheet
+        properties:
+          pipeline:
+            - $group:
+                _id: $CountryOfOrigin
+                count:
+                  $sum: 1
+            - $match:
+                count:
+                  $gt: 10
+            - $sort:
+                _id: 1
+            - $project:
+                _id: 0
+                value: $_id
+                label: $_id
+      - id: totals_overall
+        type: GoogleSheetGetMany
+        connectionId: how-to-sheet
+        properties:
+          pipeline:
+            - $match:
+                $expr:
+                  $and:
+                    - $or:
+                        - $eq:
+                            - _state: filter_species
+                            - All
+                        - $eq:
+                            - $Species
+                            - _state: filter_species
+                    - $in:
+                        - $CountryOfOrigin
+                        - _state: filter_countries
+            - $group:
+                _id: 0
+                count:
+                  $sum: 1
+                max_total_points:
+                  $max: $TotalCupPoints
+                min_total_points:
+                  $min: $TotalCupPoints
+                average_total_points:
+                  $avg: $TotalCupPoints
+            - $addFields:
+                max_total_points:
+                  $round:
+                    - $max_total_points
+                    - 2
+                min_total_points:
+                  $round:
+                    - $min_total_points
+                    - 2
+                average_total_points:
+                  $round:
+                    - $average_total_points
+                    - 2
+      - id: totals_countries
+        type: GoogleSheetGetMany
+        connectionId: how-to-sheet
+        properties:
+          pipeline:
+            - $match:
+                $expr:
+                  $and:
+                    - $or:
+                        - $eq:
+                            - _state: filter_species
+                            - All
+                        - $eq:
+                            - $Species
+                            - _state: filter_species
+                    - $in:
+                        - $CountryOfOrigin
+                        - _state: filter_countries
+            - $match:
+                CountryOfOrigin:
+                  $ne: ''
+            - $group:
+                _id: $CountryOfOrigin
+                count:
+                  $sum: 1
+                average_total_points:
+                  $avg: $TotalCupPoints
+            - $match:
+                count:
+                  $gt: 10
+            - $sort:
+                count: -1
+            - $project:
+                _id: 0
+                count: 1
+                name: $_id
+                average_total_points:
+                  $round:
+                    - $average_total_points
+                    - 2
+      - id: totals_processing
+        type: GoogleSheetGetMany
+        connectionId: how-to-sheet
+        properties:
+          pipeline:
+            - $match:
+                $expr:
+                  $and:
+                    - $or:
+                        - $eq:
+                            - _state: filter_species
+                            - All
+                        - $eq:
+                            - $Species
+                            - _state: filter_species
+                    - $in:
+                        - $CountryOfOrigin
+                        - _state: filter_countries
+            - $match:
+                ProcessingMethod:
+                  $ne: ''
+            - $group:
+                _id: $ProcessingMethod
+                count:
+                  $sum: 1
+                average_total_points:
+                  $avg: $TotalCupPoints
+            - $match:
+                count:
+                  $gt: 10
+            - $sort:
+                count: -1
+            - $project:
+                _id: 0
+                count: 1
+                name: $_id
+                average_total_points:
+                  $round:
+                    - $average_total_points
+                    - 2
+      - id: countries
+        type: GoogleSheetGetMany
+        connectionId: how-to-sheet
+        properties:
+          pipeline:
+            - $match:
+                $expr:
+                  $and:
+                    - $or:
+                        - $eq:
+                            - _state: filter_species
+                            - All
+                        - $eq:
+                            - $Species
+                            - _state: filter_species
+                    - $in:
+                        - $CountryOfOrigin
+                        - _state: filter_countries
+            - $group:
+                _id: $CountryOfOrigin
+                count:
+                  $sum: 1
+                acidity:
+                  $avg: $Acidity
+                aftertaste:
+                  $avg: $Aftertaste
+                aroma:
+                  $avg: $Aroma
+                balance:
+                  $avg: $Balance
+                body:
+                  $avg: $Body
+                clean_cup:
+                  $avg: $CleanCup
+                cupper_points:
+                  $avg: $CupperPoints
+                flavor:
+                  $avg: $Flavor
+                sweetness:
+                  $avg: $Sweetness
+                total_cup_points:
+                  $avg: $TotalCupPoints
+                uniformity:
+                  $avg: $uniformity
+            - $match:
+                count:
+                  $gt: 10
+            - $sort:
+                total_cup_points: -1
+            - $project:
+                _id: 0
+                count: 1
+                name: $_id
+                acidity:
+                  $round:
+                    - $acidity
+                    - 2
+                aftertaste:
+                  $round:
+                    - $aftertaste
+                    - 2
+                aroma:
+                  $round:
+                    - $aroma
+                    - 2
+                balance:
+                  $round:
+                    - $balance
+                    - 2
+                body:
+                  $round:
+                    - $body
+                    - 2
+                clean_cup:
+                  $round:
+                    - $clean_cup
+                    - 2
+                cupper_points:
+                  $round:
+                    - $cupper_points
+                    - 2
+                flavor:
+                  $round:
+                    - $flavor
+                    - 2
+                sweetness:
+                  $round:
+                    - $sweetness
+                    - 2
+                total_cup_points:
+                  $round:
+                    - $total_cup_points
+                    - 2
+                uniformity:
+                  $round:
+                    - $uniformity
+                    - 2
+      - id: rating_by_month
+        type: GoogleSheetGetMany
+        connectionId: how-to-sheet
+        properties:
+          pipeline:
+            - $match:
+                $expr:
+                  $and:
+                    - $or:
+                        - $eq:
+                            - _state: filter_species
+                            - All
+                        - $eq:
+                            - $Species
+                            - _state: filter_species
+                    - $in:
+                        - $CountryOfOrigin
+                        - _state: filter_countries
+            - $addFields:
+                GradingDate:
+                  $toDate: $GradingDate
+            - $group:
+                _id:
+                  $dateToString:
+                    format: '%Y-%m'
+                    date: $GradingDate
+                count:
+                  $sum: 1
+                total_cup_points:
+                  $avg: $TotalCupPoints
+            - $sort:
+                _id: 1
+            - $project:
+                _id: 0
+                count: 1
+                month: $_id
+                total_cup_points:
+                  $round:
+                    - $total_cup_points
+                    - 2
+      - id: altitude
+        type: GoogleSheetGetMany
+        connectionId: how-to-sheet
+        properties:
+          pipeline:
+            - $match:
+                $expr:
+                  $and:
+                    - $or:
+                        - $eq:
+                            - _state: filter_species
+                            - All
+                        - $eq:
+                            - $Species
+                            - _state: filter_species
+                    - $in:
+                        - $CountryOfOrigin
+                        - _state: filter_countries
+            - $bucket:
+                groupBy: $AltitudeMeanMeters
+                boundaries:
+                  - 0
+                  - 500
+                  - 1000
+                  - 1500
+                  - 2000
+                  - 2500
+                  - 3000
+                  - 3500
+                  - 4000
+                default: Other
+                output:
+                  count:
+                    $sum: 1
+                  average_total_points:
+                    $avg: $TotalCupPoints
+            - $project:
+                _id: 0
+                name:
+                  $cond:
+                    - $eq:
+                        - $_id
+                        - Other
+                    - $_id
+                    - $concat:
+                        - $toString: $_id
+                        - '-'
+                        - $toString:
+                            $sum:
+                              - $_id
+                              - 499
+                count: 1
+                average_total_points:
+                  $round:
+                    - $average_total_points
+                    - 2
+    events:
+      onInit:
+        - id: fetch_selector
+          type: Request
+          params:
+            - countries_selector
+        - id: init_selector
+          type: SetState
+          params:
+            filter_species: All
+            filter_countries:
+              _array.map:
+                - _request: countries_selector
+                - _function:
+                    __args: 0.value
+            sort_countries_stacked_chart: total_cup_points
+      onEnterAsync:
+        - id: fetch
+          type: Request
+          params:
+            - totals_overall
+            - totals_countries
+            - totals_processing
+            - countries
+            - rating_by_month
+            - altitude
+    areas:
+      content:
+        gutter: 16
+        blocks:
+          - id: title
+            type: Title
+            properties:
+              content: Coffee Quality Institute Reviews 2018
+              level: 2
+          - id: filter_card
+            type: Card
+            blocks:
+              - id: filter_species
+                type: ButtonSelector
+                layout:
+                  span: 8
+                properties:
+                  title: Species
+                  label:
+                    disabled: true
+                  options:
+                    - All
+                    - Arabica
+                    - Robusta
+                events:
+                  onChange:
+                    - id: fetch_requests
+                      type: Request
+                      messages:
+                        loading: true
+                      params:
+                        - totals_overall
+                        - totals_countries
+                        - totals_processing
+                        - countries
+                        - rating_by_month
+                        - altitude
+              - id: filter_countries
+                type: MultipleSelector
+                layout:
+                  span: 16
+                properties:
+                  title: Countries
+                  label:
+                    disabled: true
+                  options:
+                    _request: countries_selector
+                events:
+                  onChange:
+                    - id: fetch_requests
+                      type: Request
+                      messages:
+                        loading: true
+                      params:
+                        - totals_overall
+                        - totals_countries
+                        - totals_processing
+                        - countries
+                        - rating_by_month
+                        - altitude
+          - id: totals_statistics_box
+            type: Box
+            layout:
+              contentGutter: 16
+            blocks:
+              - id: totals_statistic_overall_card
+                type: Card
+                layout:
+                  span: 10
+                blocks:
+                  - id: totals_statistic_overall_title
+                    type: Title
+                    properties:
+                      content: Overall
+                      level: 4
+                  - _ref:
+                      path: components/statistic.yaml
+                      vars:
+                        id: totals_statistics_overall_count
+                        title: Sample
+                        value:
+                          _request: totals_overall.0.count
+                        icon: DashboardOutlined
+                        precision: 0
+                        layout:
+                          span: 6
+                  - _ref:
+                      path: components/statistic.yaml
+                      vars:
+                        id: totals_statistics_overall_max_points
+                        title: Max Rating
+                        value:
+                          _request: totals_overall.0.max_total_points
+                        icon: RiseOutlined
+                        layout:
+                          span: 6
+                  - _ref:
+                      path: components/statistic.yaml
+                      vars:
+                        id: totals_statistics_overall_min_points
+                        title: Min Rating
+                        value:
+                          _request: totals_overall.0.min_total_points
+                        icon: FallOutlined
+                        layout:
+                          span: 6
+                  - _ref:
+                      path: components/statistic.yaml
+                      vars:
+                        id: totals_statistics_overall_mean_points
+                        title: Avg Rating
+                        value:
+                          _request: totals_overall.0.average_total_points
+                        icon: BoxPlotOutlined
+                        layout:
+                          span: 6
+              - id: totals_statistic_countries_card
+                type: Card
+                layout:
+                  span: 7
+                blocks:
+                  - id: totals_statistic_countries_title
+                    type: Title
+                    properties:
+                      content: Countries
+                      level: 4
+                  - _ref:
+                      path: components/statistic.yaml
+                      vars:
+                        id: totals_statistics_overall_max_points
+                        title: Rating
+                        count:
+                          _get:
+                            key: 0.name
+                            from:
+                              _mql.aggregate:
+                                on:
+                                  _request: totals_countries
+                                pipeline:
+                                  - $sort:
+                                      average_total_points: -1
+                                  - $limit: 1
+                        value:
+                          _get:
+                            key: 0.average_total_points
+                            from:
+                              _mql.aggregate:
+                                on:
+                                  _request: totals_countries
+                                pipeline:
+                                  - $sort:
+                                      average_total_points: -1
+                                  - $limit: 1
+                        icon: TrophyOutlined
+                        layout:
+                          span: 12
+                  - _ref:
+                      path: components/statistic.yaml
+                      vars:
+                        id: totals_statistics_countries_count
+                        title: Sample
+                        count:
+                          _request: totals_countries.0.name
+                        icon: CoffeeOutlined
+                        value:
+                          _request: totals_countries.0.count
+                        precision: 0
+                        layout:
+                          span: 12
+              - id: totals_statistic_processing_card
+                type: Card
+                layout:
+                  span: 7
+                blocks:
+                  - id: totals_statistic_processing_title
+                    type: Title
+                    properties:
+                      content: Processing Method
+                      level: 4
+                  - _ref:
+                      path: components/statistic.yaml
+                      vars:
+                        id: totals_statistics_processing_max_points
+                        title: Rating
+                        count:
+                          _get:
+                            key: 0.name
+                            from:
+                              _mql.aggregate:
+                                on:
+                                  _request: totals_processing
+                                pipeline:
+                                  - $sort:
+                                      average_total_points: -1
+                                  - $limit: 1
+                        value:
+                          _get:
+                            key: 0.average_total_points
+                            from:
+                              _mql.aggregate:
+                                on:
+                                  _request: totals_processing
+                                pipeline:
+                                  - $sort:
+                                      average_total_points: -1
+                                  - $limit: 1
+                        icon: TrophyOutlined
+                        layout:
+                          span: 12
+                  - _ref:
+                      path: components/statistic.yaml
+                      vars:
+                        id: totals_statistics_processing_count
+                        title: Sample
+                        count:
+                          _request: totals_processing.0.name
+                        icon: CoffeeOutlined
+                        value:
+                          _request: totals_processing.0.count
+                        precision: 0
+                        layout:
+                          span: 12
+          - id: totals_pie_charts_box
+            type: Box
+            layout:
+              contentGutter: 16
+            blocks:
+              - id: totals_pie_chart_countries_card
+                type: Card
+                layout:
+                  span: 12
+                blocks:
+                  - id: totals_pie_chart_countries_title
+                    type: Title
+                    properties:
+                      content: Countries
+                      level: 4
+                  - _ref:
+                      path: components/pie_chart.yaml
+                      vars:
+                        id: totals_pie_chart_countries
+                        title: Country
+                        data:
+                          _mql.aggregate:
+                            on:
+                              _request: totals_countries
+                            pipeline:
+                              - $group:
+                                  _id:
+                                    $cond:
+                                      - $lt:
+                                          - $count
+                                          - 35
+                                      - Other
+                                      - $name
+                                  count:
+                                    $sum: $count
+                              - $sort:
+                                  count: -1
+                              - $project:
+                                  _id: 0
+                                  name: $_id
+                                  value: $count
+              - id: totals_pie_chart_processing_card
+                type: Card
+                layout:
+                  span: 12
+                blocks:
+                  - id: totals_pie_chart_processing_title
+                    type: Title
+                    properties:
+                      content: Processing Methods
+                      level: 4
+                  - _ref:
+                      path: components/pie_chart.yaml
+                      vars:
+                        id: totals_pie_chart_processing
+                        title: Method
+                        data:
+                          _array.map:
+                            - _request: totals_processing
+                            - _function:
+                                name:
+                                  __args: 0.name
+                                value:
+                                  __args: 0.count
+          - id: bar_chart_box
+            type: Box
+            layout:
+              contentGutter: 16
+            blocks:
+              - id: countries_bar_chart_card
+                type: Card
+                layout:
+                  span: 12
+                blocks:
+                  - id: countries_bar_chart_title
+                    type: Title
+                    properties:
+                      content: Country Total Ratings
+                      level: 4
+                  - _ref:
+                      path: components/bar_chart.yaml
+                      vars:
+                        id: countries_bar_chart
+                        data:
+                          _mql.aggregate:
+                            on:
+                              _request: totals_countries
+                            pipeline:
+                              - $sort:
+                                  average_total_points: -1
+              - id: processing_bar_chart_card
+                type: Card
+                layout:
+                  span: 12
+                blocks:
+                  - id: processing_bar_chart_title
+                    type: Title
+                    properties:
+                      content: Processing Total Ratings
+                      level: 4
+                  - _ref:
+                      path: components/bar_chart.yaml
+                      vars:
+                        id: processing_bar_chart
+                        data:
+                          _mql.aggregate:
+                            on:
+                              _request: totals_processing
+                            pipeline:
+                              - $sort:
+                                  average_total_points: -1
+          - id: countries_stacked_chart_card
+            type: Card
+            blocks:
+              - id: countries_stacked_chart_title
+                type: Title
+                layout:
+                  flex: 1 1 auto
+                properties:
+                  content: Countries Breakdown
+                  level: 4
+              - id: sort_countries_stacked_chart
+                type: Selector
+                layout:
+                  flex: 0 1 200px
+                properties:
+                  title: Sort by
+                  label:
+                    inline: true
+                  size: small
+                  options:
+                    _array.map:
+                      - _object.keys:
+                          _request: countries.0
+                      - _function:
+                          value:
+                            __args: 0
+                          label:
+                            __change_case.capitalCase:
+                              on:
+                                __args: 0
+              - _ref:
+                  path: components/stacked_bar_chart.yaml
+                  vars:
+                    id: countries_stacked_bar_chart
+                    data:
+                      _mql.aggregate:
+                        on:
+                          _request: countries
+                        pipeline:
+                          - $addFields:
+                              sort:
+                                _string.concat:
+                                  - '$'
+                                  - _state: sort_countries_stacked_chart
+                          - $sort:
+                              sort: -1
+          - id: ratings_timeline_chart_card
+            type: Card
+            blocks:
+              - id: countries_stacked_chart_title
+                type: Title
+                layout:
+                  flex: 1 1 auto
+                properties:
+                  content: Rating Timeline
+                  level: 4
+              - _ref:
+                  path: components/time_line_chart.yaml
+                  vars:
+                    id: ratings_timeline_chart_chart
+                    data:
+                      _request: rating_by_month
+          - id: altitude_bar_chart_card
+            type: Card
+            blocks:
+              - id: altitude_bar_chart_title
+                type: Title
+                properties:
+                  content: Alitude Ratings
+                  level: 4
+              - _ref:
+                  path: components/bar_chart.yaml
+                  vars:
+                    id: altitude_bar_chart
+                    data:
+                      _request: altitude
+          - id: data
+            type: Markdown
+            properties:
+              content:
+                _nunjucks:
+                  template: |
+                    ```
+                    {{ state | safe }}
+                    ```
+                  on:
+                    state:
+                      _yaml.stringify:
+                        - _request: altitude
+      footer:
+        blocks:
+          - id: footer
+            type: Paragraph
+            properties:
+              type: secondary
+              content: |
+                Made by a Lowdefy 🤖

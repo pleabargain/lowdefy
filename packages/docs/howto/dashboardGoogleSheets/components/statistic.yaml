@@ -1,0 +1,34 @@
+id:
+  _var: id
+type: Statistic
+layout:
+  _var:
+    name: layout
+    default: {}
+loading:
+  type: Skeleton
+  properties:
+    height: 200
+properties:
+  title:
+    _var: title
+  value:
+    _var: value
+  prefixIcon:
+    _var: icon
+  precision:
+    _var:
+      name: precision
+      default: 2
+  suffix:
+    _if:
+      test:
+        _eq:
+          - _var: count
+          - null
+      then: ''
+      else:
+        _string.concat:
+          - '('
+          - _var: count
+          - ')'

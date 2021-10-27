@@ -1,0 +1,27 @@
+id:
+  _var: id
+type: EChart
+loading:
+  type: Skeleton
+  properties:
+    height: 300
+properties:
+  height: 300
+  option:
+    tooltip:
+      trigger: item
+    legend:
+      right: 0
+      orient: vertical
+    series:
+      - name:
+          _var: title
+        type: pie
+        radius: 70%
+        emphasis:
+          itemStyle:
+            shadowBlur: 10
+            shadowOffsetX: 0
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+        data:
+          _var: data

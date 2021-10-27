@@ -1,0 +1,47 @@
+id:
+  _var: id
+type: EChart
+loading:
+  type: Skeleton
+  properties:
+    height: 400
+properties:
+  height: 400
+  option:
+    dataset:
+      source:
+        _if_none:
+          - _var: data
+          - []
+    tooltip:
+      trigger: 'axis'
+    axisPointer:
+      type: 'cross'
+    legend:
+      bottom: 0
+    xAxis:
+      type: category
+    yAxis:
+      - type: value
+        name: Total Rating
+        nameLocation: middle
+        nameRotate: 90
+        nameGap: 50
+      - type: value
+        name: Count
+        nameLocation: middle
+        nameRotate: -90
+        nameGap: 50
+    series:
+      - type: bar
+        name: Total Rating
+        yAxisIndex: 0
+        encode:
+          x: name
+          y: average_total_points
+      - type: line
+        name: Count
+        yAxisIndex: 1
+        encode:
+          x: name
+          y: count

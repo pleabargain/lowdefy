@@ -1,0 +1,108 @@
+id:
+  _var: id
+type: EChart
+loading:
+  type: Skeleton
+  properties:
+    height: 400
+properties:
+  height: 400
+  option:
+    dataset:
+      source:
+        _if_none:
+          - _var: data
+          - []
+    tooltip:
+      trigger: 'axis'
+    axisPointer:
+      type: 'cross'
+    legend:
+      bottom: 0
+    xAxis:
+      type: value
+      name: Rating
+    yAxis:
+      type: category
+      inverse: true
+    series:
+      - name: Acidity
+        type: bar
+        stack: total
+        emphasis:
+          focus: series
+        encode:
+          x: acidity
+          y: name
+      - name: Aftertaste
+        type: bar
+        stack: total
+        emphasis:
+          focus: series
+        encode:
+          x: aftertaste
+          y: name
+      - name: Aroma
+        type: bar
+        stack: total
+        emphasis:
+          focus: series
+        encode:
+          x: aroma
+          y: name
+      - name: Balance
+        type: bar
+        stack: total
+        emphasis:
+          focus: series
+        encode:
+          x: balance
+          y: name
+      - name: Body
+        type: bar
+        stack: total
+        emphasis:
+          focus: series
+        encode:
+          x: body
+          y: name
+      - name: Clean Cup
+        type: bar
+        stack: total
+        emphasis:
+          focus: series
+        encode:
+          x: clean_cup
+          y: name
+      - name: Cupper Points
+        type: bar
+        stack: total
+        emphasis:
+          focus: series
+        encode:
+          x: cupper_points
+          y: name
+      - name: Flavor
+        type: bar
+        stack: total
+        emphasis:
+          focus: series
+        encode:
+          x: flavor
+          y: name
+      - name: Sweetness
+        type: bar
+        stack: total
+        emphasis:
+          focus: series
+        encode:
+          x: sweetness
+          y: name
+      - name: Uniformity
+        type: bar
+        stack: total
+        emphasis:
+          focus: series
+        encode:
+          x: uniformity
+          y: name

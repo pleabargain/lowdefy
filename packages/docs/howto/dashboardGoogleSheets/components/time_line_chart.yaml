@@ -1,0 +1,55 @@
+id:
+  _var: id
+type: EChart
+loading:
+  type: Skeleton
+  properties:
+    height: 400
+properties:
+  height: 400
+  option:
+    dataset:
+      source:
+        _if_none:
+          - _var: data
+          - []
+    tooltip:
+      trigger: 'axis'
+    axisPointer:
+      type: 'cross'
+    legend:
+      top: 0
+      selected:
+        Count: false
+        Rating: true
+    dataZoom:
+      type: 'slider'
+    xAxis:
+      type: time
+    yAxis:
+      - type: value
+        name: Total Rating
+        nameLocation: middle
+        nameRotate: 90
+        nameGap: 50
+        min: 60
+      - type: value
+        name: Count
+        nameLocation: middle
+        nameRotate: -90
+        nameGap: 50
+    series:
+      - type: line
+        name: Rating
+        yAxisIndex: 0
+        areaStyle:
+          opacity: 0.8
+        encode:
+          x: month
+          y: total_cup_points
+      - type: line
+        name: Count
+        yAxisIndex: 1
+        encode:
+          x: month
+          y: count
