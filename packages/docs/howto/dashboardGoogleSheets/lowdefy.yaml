@@ -1,5 +1,7 @@
 lowdefy: 3.22.0
-
+types:
+  AgGridAlpine:
+    url: https://blocks-cdn.lowdefy.com/v3.12.3/blocks-aggrid/meta/AgGridAlpine.json
 connections:
   - id: how-to-sheet
     type: GoogleSheet
@@ -801,6 +803,25 @@ pages:
                     id: altitude_bar_chart
                     data:
                       _request: altitude
+          - id: countries_table_box
+            type: Box
+            blocks:
+              - id: countries_table_title
+                type: Title
+                properties:
+                  content: Countries
+                  level: 4
+              - id: countries_table
+                type: AgGridAlpine
+                properties:
+                  rowData:
+                    _request: countries
+                  defaultColDef:
+                    filter: true
+                    resizable: true
+                    sortable: true
+                    width: 200
+                  columnDefs: []
           - id: data
             type: Markdown
             properties:
