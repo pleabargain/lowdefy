@@ -1,4 +1,4 @@
-lowdefy: 3.22.0
+lowdefy: 3.23.2
 types:
   AgGridAlpine:
     url: https://blocks-cdn.lowdefy.com/v3.12.3/blocks-aggrid/meta/AgGridAlpine.json
@@ -218,7 +218,7 @@ pages:
                 total_cup_points:
                   $avg: $TotalCupPoints
                 uniformity:
-                  $avg: $uniformity
+                  $avg: $Uniformity
             - $match:
                 count:
                   $gt: 10
@@ -462,7 +462,7 @@ pages:
               - id: totals_statistic_overall_card
                 type: Card
                 layout:
-                  span: 10
+                  span: 24
                 blocks:
                   - id: totals_statistic_overall_title
                     type: Title
@@ -487,7 +487,7 @@ pages:
                         title: Max Rating
                         value:
                           _request: totals_overall.0.max_total_points
-                        icon: RiseOutlined
+                        icon: StarOutlined
                         layout:
                           span: 6
                   - _ref:
@@ -497,7 +497,7 @@ pages:
                         title: Min Rating
                         value:
                           _request: totals_overall.0.min_total_points
-                        icon: FallOutlined
+                        icon: FrownOutlined
                         layout:
                           span: 6
                   - _ref:
@@ -513,7 +513,7 @@ pages:
               - id: totals_statistic_countries_card
                 type: Card
                 layout:
-                  span: 7
+                  span: 12
                 blocks:
                   - id: totals_statistic_countries_title
                     type: Title
@@ -524,7 +524,7 @@ pages:
                       path: components/statistic.yaml
                       vars:
                         id: totals_statistics_overall_max_points
-                        title: Rating
+                        title: Highest Rating
                         count:
                           _get:
                             key: 0.name
@@ -554,7 +554,7 @@ pages:
                       path: components/statistic.yaml
                       vars:
                         id: totals_statistics_countries_count
-                        title: Sample
+                        title: Max Sample
                         count:
                           _request: totals_countries.0.name
                         icon: CoffeeOutlined
@@ -566,7 +566,7 @@ pages:
               - id: totals_statistic_processing_card
                 type: Card
                 layout:
-                  span: 7
+                  span: 12
                 blocks:
                   - id: totals_statistic_processing_title
                     type: Title
@@ -577,7 +577,7 @@ pages:
                       path: components/statistic.yaml
                       vars:
                         id: totals_statistics_processing_max_points
-                        title: Rating
+                        title: Highest Rating
                         count:
                           _get:
                             key: 0.name
@@ -607,7 +607,7 @@ pages:
                       path: components/statistic.yaml
                       vars:
                         id: totals_statistics_processing_count
-                        title: Sample
+                        title: Max Sample
                         count:
                           _request: totals_processing.0.name
                         icon: CoffeeOutlined
@@ -699,6 +699,7 @@ pages:
                       path: components/bar_chart.yaml
                       vars:
                         id: countries_bar_chart
+                        xLabelRotate: 45
                         data:
                           _mql.aggregate:
                             on:
@@ -720,6 +721,7 @@ pages:
                       path: components/bar_chart.yaml
                       vars:
                         id: processing_bar_chart
+                        xLabelRotate: 30
                         data:
                           _mql.aggregate:
                             on:
@@ -809,7 +811,7 @@ pages:
               - id: countries_table_title
                 type: Title
                 properties:
-                  content: Countries
+                  content: Countries Scores
                   level: 4
               - id: countries_table
                 type: AgGridAlpine
@@ -817,24 +819,41 @@ pages:
                   rowData:
                     _request: countries
                   defaultColDef:
-                    filter: true
+                    filter: 'agNumberColumnFilter'
                     resizable: true
                     sortable: true
                     width: 200
-                  columnDefs: []
-          - id: data
-            type: Markdown
-            properties:
-              content:
-                _nunjucks:
-                  template: |
-                    ```
-                    {{ state | safe }}
-                    ```
-                  on:
-                    state:
-                      _yaml.stringify:
-                        - _request: altitude
+                    floatingFilter: true
+                  columnDefs:
+                    - field: name
+                      headerName: Name
+                      pinned: left
+                      lockPosition: true
+                      filter: 'agTextColumnFilter'
+                    - field: count
+                      headerName: Total Sample
+                    - field: total_cup_points
+                      headerName: Total Cup Points
+                    - field: acidity
+                      headerName: Acidity
+                    - field: aftertaste
+                      headerName: Aftertaste
+                    - field: aroma
+                      headerName: Aroma
+                    - field: balance
+                      headerName: Balance
+                    - field: body
+                      headerName: Body
+                    - field: clean_cup
+                      headerName: Clean Cup
+                    - field: cupper_points
+                      headerName: Cupper Points
+                    - field: flavor
+                      headerName: Flavor
+                    - field: sweetness
+                      headerName: Sweetness
+                    - field: uniformity
+                      headerName: Uniformity
       footer:
         blocks:
           - id: footer

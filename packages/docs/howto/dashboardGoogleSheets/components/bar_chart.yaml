@@ -21,12 +21,21 @@ properties:
       bottom: 0
     xAxis:
       type: category
+      axisLabel:
+        overflow: break
+        rotate:
+          _var: xLabelRotate
+        width: 80
     yAxis:
       - type: value
         name: Total Rating
         nameLocation: middle
         nameRotate: 90
         nameGap: 50
+        min:
+          _var:
+            name: yAxisMin
+            default: 70
       - type: value
         name: Count
         nameLocation: middle
