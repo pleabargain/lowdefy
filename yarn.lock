@@ -5,6 +5,65 @@ __metadata:
   version: 5
   cacheKey: 8
 
+"@ag-grid-community/all-modules@npm:27.0.1":
+  version: 27.0.1
+  resolution: "@ag-grid-community/all-modules@npm:27.0.1"
+  dependencies:
+    "@ag-grid-community/client-side-row-model": ~27.0.0
+    "@ag-grid-community/core": ~27.0.1
+    "@ag-grid-community/csv-export": ~27.0.0
+    "@ag-grid-community/infinite-row-model": ~27.0.0
+  checksum: 89966def1aae0fc5c70d2a74ab4f11beb50006ac3fc2fb214d299b56c5ae15b41341c5115e8463b5af064a602041a120930f9d4e95b7a1e36507e9d026aa931f
+  languageName: node
+  linkType: hard
+
+"@ag-grid-community/client-side-row-model@npm:~27.0.0":
+  version: 27.0.0
+  resolution: "@ag-grid-community/client-side-row-model@npm:27.0.0"
+  dependencies:
+    "@ag-grid-community/core": ~27.0.0
+  checksum: 24d5edb1ba4e2e6f8c676b88274e495be5e551616ed1c4d220e0bb27ea8a19c2a0bc472318bfd236673d741cc722f93e08afc8d76234039745d134f68322d314
+  languageName: node
+  linkType: hard
+
+"@ag-grid-community/core@npm:27.0.1, @ag-grid-community/core@npm:~27.0.0, @ag-grid-community/core@npm:~27.0.1":
+  version: 27.0.1
+  resolution: "@ag-grid-community/core@npm:27.0.1"
+  checksum: b10883976bf47b73a2751ff8bd5aa358132a7387a38672b88ab3abc163d955055cbf34ca45e3ed3e7fcd7c3651bd4a05bb8e35bf8efbf6323905e09b5702b8d3
+  languageName: node
+  linkType: hard
+
+"@ag-grid-community/csv-export@npm:~27.0.0":
+  version: 27.0.0
+  resolution: "@ag-grid-community/csv-export@npm:27.0.0"
+  dependencies:
+    "@ag-grid-community/core": ~27.0.0
+  checksum: d93db185c821a46d01ac76e5ea8c749b8af5a115cadd6af3e03a5c810b2cb43b45c392eb576d8b03b4fd079eafdffa98ec1367bf70fad86bc8ad55f64bb84605
+  languageName: node
+  linkType: hard
+
+"@ag-grid-community/infinite-row-model@npm:~27.0.0":
+  version: 27.0.0
+  resolution: "@ag-grid-community/infinite-row-model@npm:27.0.0"
+  dependencies:
+    "@ag-grid-community/core": ~27.0.0
+  checksum: b440af2e8760681a4a66dbd74c948675182511b699a40476cbba18f2851c2847a105de12f3f1fc82f94e476df4896a2e4d1ab77d455f55c8b24f07c7da871f46
+  languageName: node
+  linkType: hard
+
+"@ag-grid-community/react@npm:27.0.1":
+  version: 27.0.1
+  resolution: "@ag-grid-community/react@npm:27.0.1"
+  dependencies:
+    prop-types: ^15.8.1
+  peerDependencies:
+    "@ag-grid-community/core": ~27.0.1
+    react: ^16.3.0 || ^17.0.0
+    react-dom: ^16.3.0 || ^17.0.0
+  checksum: d947e125eaf3240ce71d3b51f7ff6acf11f74adb351afed7859fe414c2531c87509e1f81f191e5cef4d140adaa14d800e888b2bf2de1e6627570bd869b0836fa
+  languageName: node
+  linkType: hard
+
 "@ant-design/colors@npm:^6.0.0":
   version: 6.0.0
   resolution: "@ant-design/colors@npm:6.0.0"
@@ -2043,6 +2102,32 @@ __metadata:
     dompurify: 2.3.5
     jest: 27.5.1
     jest-serializer-html: 7.1.0
+    react: 17.0.2
+    react-dom: 17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@lowdefy/blocks-ag-grid@workspace:packages/plugins/blocks/blocks-ag-grid":
+  version: 0.0.0-use.local
+  resolution: "@lowdefy/blocks-ag-grid@workspace:packages/plugins/blocks/blocks-ag-grid"
+  dependencies:
+    "@ag-grid-community/all-modules": 27.0.1
+    "@ag-grid-community/core": 27.0.1
+    "@ag-grid-community/react": 27.0.1
+    "@emotion/jest": 11.7.1
+    "@lowdefy/block-dev": 4.0.0-alpha.7
+    "@lowdefy/block-utils": 4.0.0-alpha.7
+    "@lowdefy/helpers": 4.0.0-alpha.7
+    "@swc/cli": 0.1.55
+    "@swc/core": 1.2.135
+    "@swc/jest": 0.2.17
+    "@testing-library/dom": 8.11.3
+    "@testing-library/react": 13.0.0-alpha.4
+    "@testing-library/user-event": 14.0.0-alpha.14
+    copyfiles: 2.4.1
+    jest: 27.5.1
+    jest-serializer-html: 7.1.0
+    jest-transform-yaml: 1.0.0
     react: 17.0.2
     react-dom: 17.0.2
   languageName: unknown
@@ -12485,7 +12570,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.0.0, prop-types@npm:^15.7.2":
+"prop-types@npm:^15.0.0, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:

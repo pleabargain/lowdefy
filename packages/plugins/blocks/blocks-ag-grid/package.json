@@ -52,9 +52,9 @@
     "test": "jest --coverage"
   },
   "dependencies": {
-    "@ag-grid-community/all-modules": "25.1.0",
-    "@ag-grid-community/core": "25.1.0",
-    "@ag-grid-community/react": "25.1.0",
+    "@ag-grid-community/all-modules": "27.0.1",
+    "@ag-grid-community/core": "27.0.1",
+    "@ag-grid-community/react": "27.0.1",
     "@lowdefy/block-utils": "4.0.0-alpha.7",
     "@lowdefy/helpers": "4.0.0-alpha.7",
     "react": "17.0.2",

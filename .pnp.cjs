@@ -59,6 +59,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:packages/plugins/actions/actions-core"
       },
       {
+        "name": "@lowdefy/blocks-ag-grid",
+        "reference": "workspace:packages/plugins/blocks/blocks-ag-grid"
+      },
+      {
         "name": "@lowdefy/blocks-antd",
         "reference": "workspace:packages/plugins/blocks/blocks-antd"
       },
@@ -187,6 +191,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@lowdefy/api", ["workspace:packages/api"]],
       ["@lowdefy/block-dev", ["workspace:packages/utils/block-dev"]],
       ["@lowdefy/block-utils", ["workspace:packages/utils/block-utils"]],
+      ["@lowdefy/blocks-ag-grid", ["workspace:packages/plugins/blocks/blocks-ag-grid"]],
       ["@lowdefy/blocks-antd", ["workspace:packages/plugins/blocks/blocks-antd"]],
       ["@lowdefy/blocks-basic", ["workspace:packages/plugins/blocks/blocks-basic"]],
       ["@lowdefy/blocks-color-selectors", ["workspace:packages/plugins/blocks/blocks-color-selectors"]],
@@ -243,6 +248,89 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prettier", "npm:2.5.1"]
           ],
           "linkType": "SOFT",
+        }]
+      ]],
+      ["@ag-grid-community/all-modules", [
+        ["npm:27.0.1", {
+          "packageLocation": "./.yarn/cache/@ag-grid-community-all-modules-npm-27.0.1-3beb2edeb1-89966def1a.zip/node_modules/@ag-grid-community/all-modules/",
+          "packageDependencies": [
+            ["@ag-grid-community/all-modules", "npm:27.0.1"],
+            ["@ag-grid-community/client-side-row-model", "npm:27.0.0"],
+            ["@ag-grid-community/core", "npm:27.0.1"],
+            ["@ag-grid-community/csv-export", "npm:27.0.0"],
+            ["@ag-grid-community/infinite-row-model", "npm:27.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@ag-grid-community/client-side-row-model", [
+        ["npm:27.0.0", {
+          "packageLocation": "./.yarn/cache/@ag-grid-community-client-side-row-model-npm-27.0.0-9d883e3da3-24d5edb1ba.zip/node_modules/@ag-grid-community/client-side-row-model/",
+          "packageDependencies": [
+            ["@ag-grid-community/client-side-row-model", "npm:27.0.0"],
+            ["@ag-grid-community/core", "npm:27.0.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@ag-grid-community/core", [
+        ["npm:27.0.1", {
+          "packageLocation": "./.yarn/cache/@ag-grid-community-core-npm-27.0.1-42f50e84c3-b10883976b.zip/node_modules/@ag-grid-community/core/",
+          "packageDependencies": [
+            ["@ag-grid-community/core", "npm:27.0.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@ag-grid-community/csv-export", [
+        ["npm:27.0.0", {
+          "packageLocation": "./.yarn/cache/@ag-grid-community-csv-export-npm-27.0.0-6f9786fcc0-d93db185c8.zip/node_modules/@ag-grid-community/csv-export/",
+          "packageDependencies": [
+            ["@ag-grid-community/csv-export", "npm:27.0.0"],
+            ["@ag-grid-community/core", "npm:27.0.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@ag-grid-community/infinite-row-model", [
+        ["npm:27.0.0", {
+          "packageLocation": "./.yarn/cache/@ag-grid-community-infinite-row-model-npm-27.0.0-32e95e80f3-b440af2e87.zip/node_modules/@ag-grid-community/infinite-row-model/",
+          "packageDependencies": [
+            ["@ag-grid-community/infinite-row-model", "npm:27.0.0"],
+            ["@ag-grid-community/core", "npm:27.0.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@ag-grid-community/react", [
+        ["npm:27.0.1", {
+          "packageLocation": "./.yarn/cache/@ag-grid-community-react-npm-27.0.1-16548a0e52-d947e125ea.zip/node_modules/@ag-grid-community/react/",
+          "packageDependencies": [
+            ["@ag-grid-community/react", "npm:27.0.1"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:12ebab7fa8b7f0742b1ebb633c4b199b2d6c8de19d784f26572ff2a334f4022986bec61bcf22aff60bb17be31456c48d8eceba6cadf9a28f0bd6092eb79694ef#npm:27.0.1", {
+          "packageLocation": "./.yarn/__virtual__/@ag-grid-community-react-virtual-b00bfefe7f/0/cache/@ag-grid-community-react-npm-27.0.1-16548a0e52-d947e125ea.zip/node_modules/@ag-grid-community/react/",
+          "packageDependencies": [
+            ["@ag-grid-community/react", "virtual:12ebab7fa8b7f0742b1ebb633c4b199b2d6c8de19d784f26572ff2a334f4022986bec61bcf22aff60bb17be31456c48d8eceba6cadf9a28f0bd6092eb79694ef#npm:27.0.1"],
+            ["@ag-grid-community/core", "npm:27.0.1"],
+            ["@types/ag-grid-community__core", null],
+            ["@types/react", null],
+            ["@types/react-dom", null],
+            ["prop-types", "npm:15.8.1"],
+            ["react", "npm:17.0.2"],
+            ["react-dom", "virtual:573fe255dffc9c89f4f7aa60da718603753ee98acc55d6772bbd0ebdcf07f9183fb8e54b4f3f2246c538a14ead402db8d2e076039c667d1538702638a0cc87b8#npm:17.0.2"]
+          ],
+          "packagePeers": [
+            "@ag-grid-community/core",
+            "@types/ag-grid-community__core",
+            "@types/react-dom",
+            "@types/react",
+            "react-dom",
+            "react"
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["@ant-design/colors", [
@@ -2873,6 +2961,34 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["dompurify", "npm:2.3.5"],
             ["jest", "virtual:babee6e81435a5d101529cd67f2c6b175f4db37a4ab0b58df15adf73dd11be8917ac14caf44ab4e6882a92c61661055072365b349016e85173e049f006fc2305#npm:27.5.1"],
             ["jest-serializer-html", "npm:7.1.0"],
+            ["react", "npm:17.0.2"],
+            ["react-dom", "virtual:573fe255dffc9c89f4f7aa60da718603753ee98acc55d6772bbd0ebdcf07f9183fb8e54b4f3f2246c538a14ead402db8d2e076039c667d1538702638a0cc87b8#npm:17.0.2"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@lowdefy/blocks-ag-grid", [
+        ["workspace:packages/plugins/blocks/blocks-ag-grid", {
+          "packageLocation": "./packages/plugins/blocks/blocks-ag-grid/",
+          "packageDependencies": [
+            ["@lowdefy/blocks-ag-grid", "workspace:packages/plugins/blocks/blocks-ag-grid"],
+            ["@ag-grid-community/all-modules", "npm:27.0.1"],
+            ["@ag-grid-community/core", "npm:27.0.1"],
+            ["@ag-grid-community/react", "virtual:12ebab7fa8b7f0742b1ebb633c4b199b2d6c8de19d784f26572ff2a334f4022986bec61bcf22aff60bb17be31456c48d8eceba6cadf9a28f0bd6092eb79694ef#npm:27.0.1"],
+            ["@emotion/jest", "virtual:573fe255dffc9c89f4f7aa60da718603753ee98acc55d6772bbd0ebdcf07f9183fb8e54b4f3f2246c538a14ead402db8d2e076039c667d1538702638a0cc87b8#npm:11.7.1"],
+            ["@lowdefy/block-dev", "workspace:packages/utils/block-dev"],
+            ["@lowdefy/block-utils", "workspace:packages/utils/block-utils"],
+            ["@lowdefy/helpers", "workspace:packages/utils/helpers"],
+            ["@swc/cli", "virtual:babee6e81435a5d101529cd67f2c6b175f4db37a4ab0b58df15adf73dd11be8917ac14caf44ab4e6882a92c61661055072365b349016e85173e049f006fc2305#npm:0.1.55"],
+            ["@swc/core", "npm:1.2.135"],
+            ["@swc/jest", "virtual:babee6e81435a5d101529cd67f2c6b175f4db37a4ab0b58df15adf73dd11be8917ac14caf44ab4e6882a92c61661055072365b349016e85173e049f006fc2305#npm:0.2.17"],
+            ["@testing-library/dom", "npm:8.11.3"],
+            ["@testing-library/react", "virtual:573fe255dffc9c89f4f7aa60da718603753ee98acc55d6772bbd0ebdcf07f9183fb8e54b4f3f2246c538a14ead402db8d2e076039c667d1538702638a0cc87b8#npm:13.0.0-alpha.4"],
+            ["@testing-library/user-event", "virtual:573fe255dffc9c89f4f7aa60da718603753ee98acc55d6772bbd0ebdcf07f9183fb8e54b4f3f2246c538a14ead402db8d2e076039c667d1538702638a0cc87b8#npm:14.0.0-alpha.14"],
+            ["copyfiles", "npm:2.4.1"],
+            ["jest", "virtual:babee6e81435a5d101529cd67f2c6b175f4db37a4ab0b58df15adf73dd11be8917ac14caf44ab4e6882a92c61661055072365b349016e85173e049f006fc2305#npm:27.5.1"],
+            ["jest-serializer-html", "npm:7.1.0"],
+            ["jest-transform-yaml", "npm:1.0.0"],
             ["react", "npm:17.0.2"],
             ["react-dom", "virtual:573fe255dffc9c89f4f7aa60da718603753ee98acc55d6772bbd0ebdcf07f9183fb8e54b4f3f2246c538a14ead402db8d2e076039c667d1538702638a0cc87b8#npm:17.0.2"]
           ],
