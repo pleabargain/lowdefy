@@ -1,0 +1,47 @@
+{
+  "properties": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "rowData": {
+        "type": "array",
+        "default": false,
+        "description": "The row data."
+      }
+    }
+  },
+  "events": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "onCellClick": {
+        "type": "array",
+        "description": "Called when a cell is clicked."
+      },
+      "onCellValueChanged": {
+        "type": "array",
+        "description": "Called when a cell value is changed."
+      },
+      "onFilterChanged": {
+        "type": "array",
+        "description": "Called when the filter changes."
+      },
+      "onRowClick": {
+        "type": "array",
+        "description": "Called when a row is clicked."
+      },
+      "onRowDragEnd": {
+        "type": "array",
+        "description": "Called when a row is dragged to another position in the grid."
+      },
+      "onRowSelected": {
+        "type": "array",
+        "description": "Called when a row is selected."
+      },
+      "onSelectionChanged": {
+        "type": "array",
+        "description": "Called when the selected rows are changed."
+      }
+    }
+  }
+}
